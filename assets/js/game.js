@@ -20,6 +20,10 @@
     // -if any other invalid option, call shop() again 
 
 
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+};
 
 //create function
 var fight = function(enemy) {
@@ -36,13 +40,14 @@ var fight = function(enemy) {
                 window.alert(playerInfo.name + " has decided to skip this fight. Goodbye.");
                 //subtract money from playerInfo.money for skipping
                 playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log("playerInfo.money", playerInfo.money)
+                console.log("playerInfo.money", playerInfo.money);
                 break;
             }
         }
-        
+        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+
         //remove enemy's health by subtracting the amount set in the playerInfo.attack variable
-        pickedEnemyObj.health = Math.max(0, enemy.health - playerInfo.attack);
+        enemy.health = Math.max(0, enemy.health - damage);
         
         //log a resulting message to the console to confirm that it worked
         console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
@@ -86,18 +91,12 @@ var startGame = function() {
 
         //call fight function with enemy robot
             var pickedEnemyObj = enemyInfo[i];
-            
-            //generate random damage value based on player's attack power
-            var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-            pickedEnemyObj.health = Math.max(0, pickedEnemyObj.health - damage);
 
-            //use debugger to pause script from running and check what' going on
-            //debugger;
+            //set health for picked enemy
+            pickedEnemyObj.health = randomNumber(40,60);
 
-            //pass the pickedEnemyNAme variable's value into the fight function,
-            //where it will assume the value of the enemyName parameter
             fight(pickedEnemyObj);
-        
+
             //if we're not at the last enemy in the array
             if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
                 //ask if player wants to use store before next round
@@ -164,17 +163,12 @@ var shop = function() {
     }
 };
 
-var randomNumber = function(min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-    return value;
-};
-
 // this creates a window prompt
 var playerInfo = {
     name: window.prompt("What is your robot's name?"),
     health: 100,
     attack: 10,
-    money: 50,
+    money: 10,
     reset: function() {
         this.health = 100;
         this.money = 10;
