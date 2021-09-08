@@ -43,22 +43,25 @@ var fight = function(enemy) {
       break;
     }
   }
-        
+  
+  //generate random damage vaalue based on player's attack power
+  var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
   //remove enemy's health by subtracting the amount set in the playerInfo.attack variable
-  pickedEnemyObj.health = Math.max(0, enemy.health - playerInfo.attack);
+  enemy.health = Math.max(0, enemy.health - damage);
   
   //log a resulting message to the console to confirm that it worked
   console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
       
   //check enemy's health
   if (enemy.health <= 0) {
-      window.alert(enemy.name + " has died!");
-      //award player money for winning
-      playerInfo.money = playerInfo.money + 20;
-      break;
+    window.alert(enemy.name + " has died!");
+    //award player money for winning
+    playerInfo.money = playerInfo.money + 20;
+    break;
   } else {
-      window.alert(enemy.name + " still has " + enemy.health + " health remaining.");
+    window.alert(enemy.name + " still has " + enemy.health + " health remaining.");
   }
+  
   // remove player's health by subtracting the amount set in the enemyAttack variable
   var damage = randomNumber(enemy.attack - 3, enemy.attack);
   playerInfo.health = Math.max(0, playerInfo.health - damage);
