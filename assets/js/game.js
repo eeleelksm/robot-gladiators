@@ -61,7 +61,7 @@ var fight = function(enemy) {
   } else {
     window.alert(enemy.name + " still has " + enemy.health + " health remaining.");
   }
-  
+
   // remove player's health by subtracting the amount set in the enemyAttack variable
   var damage = randomNumber(enemy.attack - 3, enemy.attack);
   playerInfo.health = Math.max(0, playerInfo.health - damage);
@@ -93,25 +93,18 @@ var startGame = function() {
       // debugger;
     //call fight function with enemy robot
       var pickedEnemyObj = enemyInfo[i];
-          
-      //generate random damage value based on player's attack power
-      var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-      pickedEnemyObj.health = Math.max(0, pickedEnemyObj.health - damage);
-
-      //use debugger to pause script from running and check what' going on
       
-
-      //pass the pickedEnemyNAme variable's value into the fight function,
-      //where it will assume the value of the enemyName parameter
+      //see health for picked enemy
+      pickedEnemyObj.health = randomNumber(40,60);
       fight(pickedEnemyObj);
-      
+     
       //if we're not at the last enemy in the array
       if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
         //ask if player wants to use store before next round
         var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
         //if yes, take to store() function
         if (storeConfirm) {
-        shop();
+          shop();
         }
       }
     }
@@ -173,10 +166,10 @@ var shop = function() {
 //function to set name 
 var getPlayerName = function() {
   var name = "";
-  while (name === "" && name ==="null") {
+  while (name === "" || name === null) {
     name = prompt("What is your robot's name?");
   }
-  console.log("Your robot's naame is " + name);
+  console.log("Your robot's name is " + name);
   return name;
 };
 
@@ -215,7 +208,7 @@ var playerInfo = {
 
 var enemyInfo = [
   {
-    name: "Roberto",
+    name: "Roborto",
     attack: randomNumber(10,14)
   },
   {
@@ -227,6 +220,11 @@ var enemyInfo = [
     attack: randomNumber(10,14)
   }
 ];
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
 
 //start the game when the page loads
 startGame();
